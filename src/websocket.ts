@@ -1,14 +1,14 @@
 import { Server } from 'socket.io'
 import httpServer from './http'
+import { users, User } from './database/connection'
 
-// Banco de Dados Fake
-interface User {
-    socket_id: string
-    username: string
-}
-const users: User[] = [] 
+const io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+})
 
-const io = new Server(httpServer)
 io.on('connection', socket => {
     socket.on('login', data => {
         socket.join('contact-list')

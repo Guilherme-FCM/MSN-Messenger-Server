@@ -1,8 +1,10 @@
-import express from "express";
+import express from 'express'
 import http from 'http'
-import path from 'path'
+import cors from 'cors'
+import routes from './routes'
 
 const app = express()
-app.use(express.static(path.resolve(__dirname, '..', 'public')))
+app.use(cors())
+app.use(routes)
 
 export default http.createServer(app)

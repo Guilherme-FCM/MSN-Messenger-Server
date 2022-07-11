@@ -1,5 +1,5 @@
 {
-  "name": "Real-Time-Chat",
+  "name": "MSN-Messager-Server",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
@@ -8,16 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Guilherme-FCM/Real-Time-Chat.git"
+    "url": "git+https://github.com/Guilherme-FCM/MSN-Messager-Server.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Guilherme-FCM/Real-Time-Chat/issues"
+    "url": "https://github.com/Guilherme-FCM/MSN-Messager-Server/issues"
   },
-  "homepage": "https://github.com/Guilherme-FCM/Real-Time-Chat#readme",
+  "homepage": "https://github.com/Guilherme-FCM/MSN-Messager-Server#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "socket.io": "^4.5.1"
   },
