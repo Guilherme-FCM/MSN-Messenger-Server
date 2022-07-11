@@ -35,19 +35,22 @@ io.on('connection', socket => {
         }
 
         const userRoom = users.find(user => user.username === data.username)
-        if (userRoom)
-            userRoom.socket_id = socket.id
+        if (userRoom) userRoom.socket_id = socket.id
         else users.push(user)
 
         io.to('contact-list').emit('login', users)
     })
 
     socket.on('logoff', data => {
-        const user = users.find(user => user.username === data.username)
-        
+        const user = users.find(user => user.username === data.username)        
         if (user) users.splice(users.indexOf(user), 1)
 
         io.to('contact-list').emit('logoff', users)
+    })
+
+    socket.on('message', data => {
+        const { sender, recipient, message } = data
+        io.to(recipient).emit('message', { sender, message })
     })
 })
 
