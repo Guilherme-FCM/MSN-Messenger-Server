@@ -7,6 +7,8 @@
     <title>Contact List</title>
 </head>
 <body>
+    <button onclick="disconnect()">Disconnect</button>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -17,8 +19,10 @@
         window.onload = function (){
             socket.emit('login', { username })
         }
-        window.onbeforeunload = function(){
+
+        function disconnect(){
             socket.emit('logoff', { username })
+            window.location.href = '/'
         }
 
         socket.on('login', data => {

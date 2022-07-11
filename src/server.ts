@@ -44,7 +44,8 @@ io.on('connection', socket => {
 
     socket.on('logoff', data => {
         const user = users.find(user => user.username === data.username)
-        if (user) users.slice(users.indexOf(user), 1)
+        
+        if (user) users.splice(users.indexOf(user), 1)
 
         io.to('contact-list').emit('logoff', users)
     })
