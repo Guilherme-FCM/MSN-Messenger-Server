@@ -6,7 +6,8 @@
    "scripts": {
       "dev": "ts-node-dev src/index.ts --ignore-whatch node_modules --transpileOnly",
       "typeorm": "typeorm-ts-node-commonjs",
-      "migrations": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts"
+      "migrations": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts",
+      "migrations:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index.ts"
    },
    "repository": {
       "type": "git",
@@ -25,13 +26,15 @@
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "socket.io": "^4.5.1",
-      "typeorm": "0.3.7"
+      "typeorm": "0.3.7",
+      "uuid": "^8.3.2"
    },
    "devDependencies": {
       "@types/express": "^4.17.13",
-      "ts-node-dev": "^2.0.0",
-      "typescript": "4.5.2",
+      "@types/node": "^16.11.10",
+      "@types/uuid": "^8.3.4",
       "ts-node": "10.7.0",
-      "@types/node": "^16.11.10"
+      "ts-node-dev": "^2.0.0",
+      "typescript": "4.5.2"
    }
 }

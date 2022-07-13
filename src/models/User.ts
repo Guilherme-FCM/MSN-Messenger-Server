@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm"
+import Message from "./Message"
 
 @Entity('users')
 export default class User {
@@ -19,4 +20,7 @@ export default class User {
 
     @Column()
     birthday: Date
+//
+    // @OneToMany(() => Message, (message) => message.sender)
+    // messages: Message[]
 }

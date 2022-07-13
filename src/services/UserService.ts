@@ -1,6 +1,8 @@
 import User from "../models/User";
 import { AppDataSource } from "../database"
 
+AppDataSource.initialize()
+
 type UserRequest = { 
     username: string, 
     password: string, 
@@ -9,8 +11,6 @@ type UserRequest = {
     email: string, 
     birthday: Date
 }
-
-AppDataSource.initialize()
 
 export default class UserService {
     async index(){
