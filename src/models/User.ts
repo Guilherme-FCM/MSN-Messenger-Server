@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryColumn } from "typeorm"
 @Entity('users')
 export default class User {
     @PrimaryColumn()
-    username: number
+    username: string
 
     @Column()
     password: string

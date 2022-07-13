@@ -12,6 +12,10 @@ export default class UserController {
         let { username, password, firstName, lastName, email, birthday } = request.body
         const service = new UserService()
         const user = await service.create({ username, password, firstName, lastName, email, birthday })
+
+        if(user instanceof Error)
+            return response.status(400).json({ error: user.message })
+
         return response.json(user)
     }
 }

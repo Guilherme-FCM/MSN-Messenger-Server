@@ -2,7 +2,7 @@ import User from "../models/User";
 import { AppDataSource } from "../database"
 
 type UserRequest = { 
-    username: number, 
+    username: string, 
     password: string, 
     firstName: string, 
     lastName: string, 
@@ -26,9 +26,16 @@ export default class UserService {
         })
         return users
     }
-    async create(userBody: UserRequest){
-        const repository = AppDataSource.getRepository(User)
-        const user = repository.create(userBody)
-        return await repository.save(user)
+
+    async create(userBody: UserRequest): Promise<User | Error>{
+        try {
+            const repository = AppDataSource.getRepository(User)
+            
+            if (await repository.findOneBy({ username: userBody.username }))
+                return Error("User alredy exists.")
+            
+            const user = repository.create(userBody)
+            return await repository.save(user)
+        } catch (error ) { return Error(error) }
     }
 }
