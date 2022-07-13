@@ -8,7 +8,6 @@ export const AppDataSource = new DataSource({
     username: "postgres",
     password: "root",
     database: "msn-messenger",
-    synchronize: true,
     logging: false,
     entities: ['src/models/*.ts'],
     migrations: ['src/database/migrations/*.ts'],
