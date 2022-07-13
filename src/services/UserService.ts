@@ -27,6 +27,16 @@ export default class UserService {
         return users
     }
 
+    async show(username: string): Promise<User | Error>{
+        const repository = AppDataSource.getRepository(User)
+        const user = await repository.findOneBy({ username })
+        
+        if (! user) return Error("User not found.")
+
+        delete user.password
+        return user
+    }
+
     async create(userBody: UserRequest): Promise<User | Error>{
         try {
             const repository = AppDataSource.getRepository(User)
