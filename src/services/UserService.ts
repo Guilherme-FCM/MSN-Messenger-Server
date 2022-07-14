@@ -15,7 +15,7 @@ type UserRequest = {
 export default class UserService {
     async index(){
         const repository = AppDataSource.getRepository(User)
-        const users = await repository.find({
+        return await repository.find({
             select: {
                 username: true,
                 firstName: true,
@@ -24,16 +24,14 @@ export default class UserService {
                 birthday: true
             },
         })
-        return users
     }
 
-    async show(username: string): Promise<User | Error>{
+    async show(username: string, returnPassword: boolean = false): Promise<User | Error>{
         const repository = AppDataSource.getRepository(User)
         const user = await repository.findOneBy({ username })
-        
-        if (! user) return Error("User not found.")
 
-        delete user.password
+        if (! user) return Error("User not found.")
+        if (! returnPassword) delete user.password
         return user
     }
 

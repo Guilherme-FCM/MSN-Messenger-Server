@@ -8,5 +8,6 @@ userRoutes.route('/')
     .get(userController.index)
     .post(userController.create)
 userRoutes.get('/:username', userController.show)
+userRoutes.post('/authenticate', userController.authenticate)
 
 export default userRoutes

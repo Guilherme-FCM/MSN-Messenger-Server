@@ -20,7 +20,7 @@ export default class User {
 
     @Column()
     birthday: Date
-//
+
     // @OneToMany(() => Message, (message) => message.sender)
     // messages: Message[]
 }
