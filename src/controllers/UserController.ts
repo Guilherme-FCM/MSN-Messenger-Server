@@ -12,36 +12,35 @@ export default class UserController {
         let { username } = request.params
 
         const service = new UserService()
-        const user = await service.show(username)
+        const result = await service.show(username)
 
-        if (user instanceof Error)
-            return response.json({ error: user.message })
-        return response.json(user)  
+        if (result instanceof Error)
+            return response.status(400).json({ error: result.message })
+        return response.json(result)  
     }
 
     async create(request: Request, response: Response){
         let { username, password, firstName, lastName, email, birthday } = request.body
 
         const service = new UserService()
-        const user = await service.create({ username, password, firstName, lastName, email, birthday })
+        const result = await service.create({ username, password, firstName, lastName, email, birthday })
 
-        if(user instanceof Error)
-            return response.json({ error: user.message })
-        return response.json(user)
+        if(result instanceof Error)
+            return response.status(400).json({ error: result.message })
+        return response.json(result)
     }
 
     async authenticate(request: Request, response: Response){
         let { username, password } = request.body
 
         const service = new UserService()
-        const user = await service.show(username, true)
+        const result = await service.show(username, true)
 
-        if (user instanceof Error)
-            return response.json({ error: user.message })
+        if (result instanceof Error)
+            return response.status(400).json({ error: result.message })
         
-        if(user.password !== password)
+        if(result.password !== password)
             return response.json({ error: 'Invalid password.' })
-
-        return response.json(user)
+        return response.json(result)
     }
 }

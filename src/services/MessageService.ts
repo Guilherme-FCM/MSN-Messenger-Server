@@ -6,22 +6,28 @@ AppDataSource.initialize()
 
 type MessageRequest = {
     id?: string
-    sender: User
-    recipient: User
+    sender: string
+    recipient: string
     text: string
     created_at?: Date
 }
 
 export default class MessageService {
-    async index(){
+    async index(sender, recipient){
         const repository = AppDataSource.getRepository(Message)
-        const messages = await repository.find()
-        return messages
+        return await repository.find({
+            where: [
+                { sender, recipient },
+                { sender: recipient, recipient: sender }
+            ]
+        })
     }
 
     async create(messageBody: MessageRequest){
-        const repository = AppDataSource.getRepository(Message)
-        const message = repository.create(messageBody)
-        return await repository.save(message)
+        try {
+            const repository = AppDataSource.getRepository(Message)
+            const message = repository.create(messageBody)
+            return await repository.save(message)
+        } catch(error){ return Error(error.message) }
     }
 }

@@ -7,21 +7,21 @@ export class CreateMessage1657724727544 implements MigrationInterface {
             name: 'messages',
             columns: [
                 {name: 'id', type: 'varchar', isPrimary: true},
-                {name: 'senderUsername', type: 'varchar'},
-                {name: 'recipientUsername', type: 'varchar'},
+                {name: 'sender', type: 'varchar'},
+                {name: 'recipient', type: 'varchar'},
                 {name: 'text', type: 'text'},
                 {name: 'created_at', type: 'timestamp', default: 'now()'}
             ],
             foreignKeys: [
                 {
                     name: 'fk_message_sender',
-                    columnNames: ['senderUsername'],
+                    columnNames: ['sender'],
                     referencedTableName: 'users',
                     referencedColumnNames: ['username']
                 },
                 {
                     name: 'fk_message_recipient',
-                    columnNames: ['recipientUsername'],
+                    columnNames: ['recipient'],
                     referencedTableName: 'users',
                     referencedColumnNames: ['username']
                 }

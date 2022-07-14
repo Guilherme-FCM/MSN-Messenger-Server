@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from 'uuid'
 import User from "./User";
 
@@ -11,11 +11,19 @@ export default class Message {
     @PrimaryColumn()
     id: string
 
-    @ManyToOne(() => User)
-    sender: User
+    @Column()
+    sender: string
 
     @ManyToOne(() => User)
-    recipient: User
+    @JoinColumn({ name: 'sender' })
+    senderUser: User
+
+    @Column()
+    recipient: string
+
+    @ManyToOne(() => User)
+    @JoinColumn({ name: 'recipient' })
+    recipientUser: User
 
     @Column()
     text: string
