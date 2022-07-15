@@ -1,5 +1,8 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import 'reflect-metadata'
 import './websocket'
 import httpServer from './http'
 
-httpServer.listen(3333, () => { console.log('Server running on port 3333') })
+const port = process.env.PORT || 3333
+httpServer.listen(port, () => { console.log('Server running on port ' + port) })

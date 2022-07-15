@@ -3,13 +3,10 @@ import { DataSource } from "typeorm"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "root",
-    database: "msn-messenger",
+    url: process.env.DATABASE_URL,
     logging: false,
     entities: ['src/models/*.ts'],
     migrations: ['src/database/migrations/*.ts'],
     subscribers: [],
+    migrationsRun: true,
 })
