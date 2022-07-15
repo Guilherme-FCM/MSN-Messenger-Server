@@ -20,10 +20,10 @@ export default class UserController {
     }
 
     async create(request: Request, response: Response){
-        let { username, password, firstName, lastName, email, birthday } = request.body
+        let { username, password, firstName, lastName, email } = request.body
 
         const service = new UserService()
-        const result = await service.create({ username, password, firstName, lastName, email, birthday })
+        const result = await service.create({ username, password, firstName, lastName, email })
 
         if(result instanceof Error)
             return response.status(400).json({ error: result.message })

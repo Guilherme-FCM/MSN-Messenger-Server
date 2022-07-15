@@ -1,5 +1,4 @@
 import Message from '../models/Message'
-import User from '../models/User'
 import { AppDataSource } from "../database"
 
 AppDataSource.initialize()

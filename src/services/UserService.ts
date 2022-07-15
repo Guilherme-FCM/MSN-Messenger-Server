@@ -8,8 +8,7 @@ type UserRequest = {
     password: string, 
     firstName: string, 
     lastName: string, 
-    email: string, 
-    birthday: Date
+    email: string
 }
 
 export default class UserService {
@@ -20,8 +19,7 @@ export default class UserService {
                 username: true,
                 firstName: true,
                 lastName: true,
-                email: true,
-                birthday: true
+                email: true
             },
         })
     }
