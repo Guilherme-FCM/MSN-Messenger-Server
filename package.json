@@ -1,15 +1,14 @@
 {
-   "name": "MSN-Messenger-Server",
+   "name": "msn-messenger-server",
    "version": "1.0.0",
    "description": "",
    "main": "src/index.ts",
    "scripts": {
       "dev": "ts-node-dev src/index.ts --ignore-whatch node_modules --transpileOnly",
       "start": "node dist/index.js",
-      "build:server": "tsc",
       "typeorm": "typeorm-ts-node-commonjs",
       "migrations": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts",
-      "build:migrations": "npx typeorm migration:run -d dist/database/index.js",
+      "migrations:start": "npx typeorm migration:run -d dist/database/index.js",
       "migrations:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index.ts"
    },
    "repository": {
