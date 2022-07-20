@@ -19,7 +19,7 @@ To use this API, it's require install in your computer:
 - [PostgreSQL](https://www.postgresql.org/download/)
 
 ## 🚀**How to Use**
-1. Coonfigure your database and port on [.env](./.env) file
+1. Copy the [.env.example](./.env.example) to a new file called `.env` and configure your database and application port
 
 2. Create a database, for example:
 ~~~sql
