@@ -12,7 +12,7 @@ const dataSourceOptions: DataSourceOptions = {
     migrations: [root + '/database/migrations/*' + extention],
     subscribers: [],
     ssl: {
-        rejectUnauthorized: true
+        rejectUnauthorized: false
     }
 }
 
