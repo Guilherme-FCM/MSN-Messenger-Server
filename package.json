@@ -5,7 +5,7 @@
    "main": "src/index.ts",
    "scripts": {
       "dev": "ts-node-dev src/index.ts --ignore-whatch node_modules --transpileOnly",
-      "start": "node dist/index.js",
+      "start": "tsc & node dist/index.js",
       "typeorm": "typeorm-ts-node-commonjs",
       "migrations": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts",
       "migrations:start": "npx typeorm migration:run -d dist/database/index.js",

@@ -22,8 +22,8 @@ const users: OnlineUser[] = []
 io.on('connection', socket => {
    socket.on('login', data => {
       socket.join('contact-list')
-      console.log(data)
       let { username, firstName, lastName, status, message } = data
+      
       const user: OnlineUser = {
          socket_id: socket.id,
          username, firstName, lastName, status, message
