@@ -1,14 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const enviroment_1 = require("./enviroment");
-const root = enviroment_1.env == 'development' ? 'src' : 'dist';
-const extention = enviroment_1.env == 'development' ? '.ts' : '.js';
-const dataSourceOptions = {
-    type: "postgres",
-    url: enviroment_1.database_url,
-    logging: false,
-    entities: [root + '/models/*' + extention],
-    migrations: [root + '/database/migrations/*' + extention],
-    subscribers: [],
-};
+let dataSourceOptions;
+if (enviroment_1.env === 'development')
+    dataSourceOptions = {
+        type: "postgres",
+        url: enviroment_1.database_url,
+        logging: false,
+        entities: ['src/models/*.ts'],
+        migrations: ['src/database/migrations/*.ts'],
+        subscribers: [],
+    };
+else
+    dataSourceOptions = {
+        type: "postgres",
+        url: enviroment_1.database_url,
+        logging: false,
+        entities: ['dist/models/*.js'],
+        migrations: ['dist/database/migrations/*.js'],
+        subscribers: [],
+        ssl: {
+            rejectUnauthorized: false
+        }
+    };
 exports.default = dataSourceOptions;

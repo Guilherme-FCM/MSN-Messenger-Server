@@ -9,7 +9,8 @@ const userRoutes = express_1.default.Router();
 const userController = new UserController_1.default();
 userRoutes.route('/')
     .get(userController.index)
-    .post(userController.create);
+    .post(userController.create)
+    .put(userController.update);
 userRoutes.get('/:username', userController.show);
 userRoutes.post('/authenticate', userController.authenticate);
 exports.default = userRoutes;

@@ -24,7 +24,8 @@ class UserService {
                     username: true,
                     firstName: true,
                     lastName: true,
-                    email: true
+                    email: true,
+                    note: true
                 },
             });
         });
@@ -48,6 +49,21 @@ class UserService {
                     return Error("User alredy exists.");
                 const user = repository.create(userBody);
                 return yield repository.save(user);
+            }
+            catch (error) {
+                return Error(error);
+            }
+        });
+    }
+    update(userBody) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { username, firstName, lastName, email, note } = userBody;
+            try {
+                const repository = database_1.AppDataSource.getRepository(User_1.default);
+                const user = yield repository.findOneBy({ username });
+                if (!user)
+                    return Error("User not found.");
+                return yield repository.update({ username }, { firstName, lastName, email, note });
             }
             catch (error) {
                 return Error(error);

@@ -41,6 +41,16 @@ class UserController {
             return response.json(result);
         });
     }
+    update(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { username, password, firstName, lastName, email, note } = request.body;
+            const service = new UserService_1.default();
+            const result = yield service.update({ username, password, firstName, lastName, email, note });
+            if (result instanceof Error)
+                return response.status(400).json({ error: result.message });
+            return response.json(result);
+        });
+    }
     authenticate(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             let { username, password } = request.body;

@@ -37,6 +37,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "note", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => Message_1.default, (message) => message.sender),
     __metadata("design:type", Array)
 ], User.prototype, "messages", void 0);
