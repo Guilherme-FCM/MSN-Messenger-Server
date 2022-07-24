@@ -19,7 +19,8 @@ export default class UserService {
                 username: true,
                 firstName: true,
                 lastName: true,
-                email: true
+                email: true,
+                note: true
             },
         })
     }

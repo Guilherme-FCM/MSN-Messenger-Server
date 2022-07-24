@@ -1,19 +1,27 @@
 import { database_url, env } from "./enviroment";
 import { DataSourceOptions } from "typeorm";
 
-const root = env == 'development' ? 'src' : 'dist'
-const extention = env == 'development' ? '.ts' : '.js'
-
-const dataSourceOptions: DataSourceOptions = {
-    type: "postgres",
-    url: database_url,
-    logging: false,
-    entities: [root + '/models/*' + extention],
-    migrations: [root + '/database/migrations/*' + extention],
-    subscribers: [],
-    ssl: {
-        rejectUnauthorized: false
+let dataSourceOptions: DataSourceOptions
+if (env === 'development')
+    dataSourceOptions = {
+        type: "postgres",
+        url: database_url,
+        logging: false,
+        entities: ['src/models/*.ts'],
+        migrations: ['src/database/migrations/*.ts'],
+        subscribers: [],
     }
-}
+else 
+    dataSourceOptions = {
+        type: "postgres",
+        url: database_url,
+        logging: false,
+        entities: ['dist/models/*.js'],
+        migrations: ['dist/database/migrations/*.js'],
+        subscribers: [],
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
 
 export default dataSourceOptions
