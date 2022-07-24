@@ -1,6 +1,7 @@
 import { Server } from 'socket.io'
 import httpServer from './http'
 import MessageService from './services/MessageService'
+import UserService from './services/UserService'
 
 const io = new Server(httpServer, {
    cors: {
@@ -38,9 +39,14 @@ io.on('connection', socket => {
 
    socket.on('noteChange', data => {
       const user = users.find(user => user.username === data.username)
-      user.note = data.note
 
-      io.to('contact-list').emit('noteChange', user)
+      const userService = new UserService()
+      const result = userService.update(data)
+
+      if (! (result instanceof Error)){
+         user.note = data.note
+         io.to('contact-list').emit('noteChange', user)
+      }
    })
 
    socket.on('statusChange', data => {
