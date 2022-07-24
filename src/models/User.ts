@@ -19,7 +19,7 @@ export default class User {
     email: string
 
     @Column()
-    note: string
+    note?: string
 
     @OneToMany(() => Message, (message) => message.sender)
     messages: Message[]

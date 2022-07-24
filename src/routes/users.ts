@@ -7,6 +7,7 @@ const userController = new UserController()
 userRoutes.route('/')
     .get(userController.index)
     .post(userController.create)
+    .put(userController.update)
 userRoutes.get('/:username', userController.show)
 userRoutes.post('/authenticate', userController.authenticate)
 

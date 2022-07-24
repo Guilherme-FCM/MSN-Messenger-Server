@@ -30,6 +30,17 @@ export default class UserController {
         return response.json(result)
     }
 
+    async update(request: Request, response: Response){
+        let { username, password, firstName, lastName, email, note } = request.body
+
+        const service = new UserService()
+        const result = await service.update({ username, password, firstName, lastName, email, note })
+
+        if(result instanceof Error)
+            return response.status(400).json({ error: result.message })
+        return response.json(result)
+    }
+
     async authenticate(request: Request, response: Response){
         let { username, password } = request.body
 
