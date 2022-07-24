@@ -20,9 +20,9 @@ interface OnlineUser {
 }
 const users: OnlineUser[] = [] 
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
    socket.on('login', data => {
-      socket.join('contact-list')
+      socket.join('contactList')
       let { username, firstName, lastName, status, note } = data
       
       const user: OnlineUser = {
@@ -34,18 +34,18 @@ io.on('connection', socket => {
       if (userRoom) userRoom.socket_id = socket.id
       else users.push(user)
 
-      io.to('contact-list').emit('login', users)
+      io.to('contactList').emit('login', users)
    })
 
-   socket.on('noteChange', data => {
+   socket.on('noteChange', async (data) => {
       const user = users.find(user => user.username === data.username)
 
       const userService = new UserService()
-      const result = userService.update(data)
+      const result = await userService.update(data)
 
       if (! (result instanceof Error)){
          user.note = data.note
-         io.to('contact-list').emit('noteChange', user)
+         io.to('contactList').emit('noteChange', user)
       }
    })
 
@@ -53,22 +53,25 @@ io.on('connection', socket => {
       const user = users.find(user => user.username === data.username)
       user.status = data.status
 
-      io.to('contact-list').emit('statusChange', user) 
+      io.to('contactList').emit('statusChange', user) 
    })
 
    socket.on('logoff', data => {
       const user = users.find(user => user.username === data.username)        
       if (user) users.splice(users.indexOf(user), 1)
 
-      io.to('contact-list').emit('logoff', users)
+      io.to('contactList').emit('logoff', users)
    })
 
-   socket.on('message', data => {
+   socket.on('message', async (data) => {
       let { sender, recipient, text } = data
-
+      const recipientUser = users.find(user => user.username === recipient)
+      console.log(recipientUser.socket_id)
+      
       const messageService = new MessageService()
-      const message = messageService.create({ sender, recipient, text })
-
-      io.to(recipient).emit('message', message)
+      const message = await messageService.create({ sender, recipient, text })
+      
+      // socket.join(recipientUser.socket_id)
+      io.to(recipientUser.socket_id).emit('message', message)
    })
 })
