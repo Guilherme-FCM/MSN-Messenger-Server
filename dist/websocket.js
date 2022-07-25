@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14,9 +23,9 @@ const io = new socket_io_1.Server(http_1.default, {
     }
 });
 const users = [];
-io.on('connection', socket => {
+io.on('connection', (socket) => {
     socket.on('login', data => {
-        socket.join('contact-list');
+        socket.join('contactList');
         let { username, firstName, lastName, status, note } = data;
         const user = {
             socket_id: socket.id,
@@ -27,32 +36,37 @@ io.on('connection', socket => {
             userRoom.socket_id = socket.id;
         else
             users.push(user);
-        io.to('contact-list').emit('login', users);
+        io.to('contactList').emit('login', users);
     });
-    socket.on('noteChange', data => {
+    socket.on('noteChange', (data) => __awaiter(void 0, void 0, void 0, function* () {
         const user = users.find(user => user.username === data.username);
         const userService = new UserService_1.default();
-        const result = userService.update(data);
+        const result = yield userService.update(data);
         if (!(result instanceof Error)) {
             user.note = data.note;
-            io.to('contact-list').emit('noteChange', user);
+            io.to('contactList').emit('noteChange', user);
         }
-    });
+    }));
     socket.on('statusChange', data => {
         const user = users.find(user => user.username === data.username);
         user.status = data.status;
-        io.to('contact-list').emit('statusChange', user);
+        io.to('contactList').emit('statusChange', user);
     });
     socket.on('logoff', data => {
         const user = users.find(user => user.username === data.username);
         if (user)
             users.splice(users.indexOf(user), 1);
-        io.to('contact-list').emit('logoff', users);
+        io.to('contactList').emit('logoff', users);
     });
-    socket.on('message', data => {
+    socket.on('openChat', data => {
+        const senderUser = users.find(user => user.username === data.username);
+        senderUser.socket_id = data.socketId;
+    });
+    socket.on('message', (data) => __awaiter(void 0, void 0, void 0, function* () {
         let { sender, recipient, text } = data;
+        const recipientUser = users.find(user => user.username === recipient);
         const messageService = new MessageService_1.default();
-        const message = messageService.create({ sender, recipient, text });
-        io.to(recipient).emit('message', message);
-    });
+        const message = yield messageService.create({ sender, recipient, text });
+        io.in(recipientUser.socket_id).emit('message', message);
+    }));
 });
