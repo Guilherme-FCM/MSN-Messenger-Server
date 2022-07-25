@@ -63,15 +63,18 @@ io.on('connection', (socket) => {
       io.to('contactList').emit('logoff', users)
    })
 
+   socket.on('openChat', data => {
+      const senderUser = users.find(user => user.username === data.username)
+      senderUser.socket_id = data.socketId
+   })
+
    socket.on('message', async (data) => {
       let { sender, recipient, text } = data
       const recipientUser = users.find(user => user.username === recipient)
-      console.log(recipientUser.socket_id)
       
       const messageService = new MessageService()
       const message = await messageService.create({ sender, recipient, text })
       
-      // socket.join(recipientUser.socket_id)
-      io.to(recipientUser.socket_id).emit('message', message)
+      io.in(recipientUser.socket_id).emit('message', message)
    })
 })
