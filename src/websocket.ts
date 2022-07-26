@@ -70,11 +70,11 @@ io.on('connection', (socket) => {
 
    socket.on('message', async (data) => {
       let { sender, recipient, text } = data
-      const recipientUser = users.find(user => user.username === recipient)
       
       const messageService = new MessageService()
       const message = await messageService.create({ sender, recipient, text })
       
-      io.in(recipientUser.socket_id).emit('message', message)
+      const recipientUser = users.find(user => user.username === recipient)
+      if (recipientUser) io.in(recipientUser.socket_id).emit('message', message)
    })
 })
