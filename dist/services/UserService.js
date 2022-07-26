@@ -60,8 +60,7 @@ class UserService {
             let { username, firstName, lastName, email, note } = userBody;
             try {
                 const repository = database_1.AppDataSource.getRepository(User_1.default);
-                const user = yield repository.findOneBy({ username });
-                if (!user)
+                if (!(yield repository.findOneBy({ username })))
                     return Error("User not found.");
                 return yield repository.update({ username }, { firstName, lastName, email, note });
             }

@@ -17,14 +17,20 @@ class MessageController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             let { sender, recipient } = request.query;
+            if (!sender || !recipient)
+                return response.status(400).json({ error: 'Sender and recipient are required.' });
             const service = new MessageService_1.default();
-            const messages = yield service.index(sender, recipient);
-            return response.json(messages);
+            const result = yield service.index(sender, recipient);
+            if (result instanceof Error)
+                return response.status(400).json({ error: result.message });
+            return response.json(result);
         });
     }
     create(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             let { sender, recipient, text } = request.body;
+            if (!sender || !recipient || !text)
+                return response.status(400).json({ error: 'Sender, recipient, and a text are required.' });
             const service = new MessageService_1.default();
             const result = yield service.create({ sender, recipient, text });
             if (result instanceof Error)

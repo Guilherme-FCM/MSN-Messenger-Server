@@ -18,13 +18,18 @@ database_1.AppDataSource.initialize();
 class MessageService {
     index(sender, recipient) {
         return __awaiter(this, void 0, void 0, function* () {
-            const repository = database_1.AppDataSource.getRepository(Message_1.default);
-            return yield repository.find({
-                where: [
-                    { sender, recipient },
-                    { sender: recipient, recipient: sender }
-                ]
-            });
+            try {
+                const repository = database_1.AppDataSource.getRepository(Message_1.default);
+                return yield repository.find({
+                    where: [
+                        { sender, recipient },
+                        { sender: recipient, recipient: sender }
+                    ]
+                });
+            }
+            catch (error) {
+                return Error(error.message);
+            }
         });
     }
     create(messageBody) {

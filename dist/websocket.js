@@ -64,9 +64,15 @@ io.on('connection', (socket) => {
     });
     socket.on('message', (data) => __awaiter(void 0, void 0, void 0, function* () {
         let { sender, recipient, text } = data;
-        const recipientUser = users.find(user => user.username === recipient);
         const messageService = new MessageService_1.default();
         const message = yield messageService.create({ sender, recipient, text });
-        io.in(recipientUser.socket_id).emit('message', message);
+        const recipientUser = users.find(user => user.username === recipient);
+        if (recipientUser)
+            io.in(recipientUser.socket_id).emit('message', message);
     }));
+    socket.on("disconnect", reason => {
+        const user = users.find(user => user.socket_id === socket.id);
+        if (user)
+            users.splice(users.indexOf(user), 1);
+    });
 });
