@@ -6,7 +6,7 @@ AppDataSource.initialize()
 
 type UserRequest = { 
     username: string, 
-    password: string, 
+    password?: string, 
     firstName: string, 
     lastName: string, 
     email: string,
@@ -50,12 +50,11 @@ export default class UserService {
 
     async update(userBody: UserRequest): Promise<UpdateResult | Error>{
         let { username, firstName, lastName, email, note } = userBody
-
         try {
             const repository = AppDataSource.getRepository(User)
-            const user = await repository.findOneBy({ username })
 
-            if (! user) return Error("User not found.")            
+            if (! await repository.findOneBy({ username })) 
+                return Error("User not found.") 
             return await repository.update({ username }, { firstName, lastName, email, note })
         } catch (error ) { return Error(error) }
     }

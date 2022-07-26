@@ -31,10 +31,10 @@ export default class UserController {
     }
 
     async update(request: Request, response: Response){
-        let { username, password, firstName, lastName, email, note } = request.body
+        let { username, firstName, lastName, email, note } = request.body
 
         const service = new UserService()
-        const result = await service.update({ username, password, firstName, lastName, email, note })
+        const result = await service.update({ username, firstName, lastName, email, note })
 
         if(result instanceof Error)
             return response.status(400).json({ error: result.message })
