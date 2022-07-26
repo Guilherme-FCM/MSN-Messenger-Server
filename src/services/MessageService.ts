@@ -13,13 +13,15 @@ type MessageRequest = {
 
 export default class MessageService {
     async index(sender, recipient){
-        const repository = AppDataSource.getRepository(Message)
-        return await repository.find({
-            where: [
-                { sender, recipient },
-                { sender: recipient, recipient: sender }
-            ]
-        })
+        try {
+            const repository = AppDataSource.getRepository(Message)
+            return await repository.find({
+                where: [
+                    { sender, recipient },
+                    { sender: recipient, recipient: sender }
+                ]
+            })
+        } catch(error){ return Error(error.message) }
     }
 
     async create(messageBody: MessageRequest){
