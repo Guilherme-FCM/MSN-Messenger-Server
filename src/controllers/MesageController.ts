@@ -19,6 +19,9 @@ export default class MessageController {
     async create(request: Request, response: Response){
         let { sender, recipient, text } = request.body
 
+        if(!sender || !recipient || !text)
+            return response.status(400).json({ error: 'Sender, recipient, and a text are required.' })
+
         const service = new MessageService()
         const result = await service.create({ sender, recipient, text })
 
