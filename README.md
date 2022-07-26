@@ -40,14 +40,6 @@ npm run dev;
 # Runing in http://localhost:3333/
 ~~~
 
-## 📄**Documentation**
-| Method | Resource          | Description                            |
-| ------ | ----------------- | -------------------------------------- | 
-| GET    | /users            | Get all users                          |
-| GET    | /users/{username} | Get one user                           |
-| POST   | /users            | Create a user                          |
-| POST   | /authenticate     | Authenticate a user                    |
-| GET    | /messages?sender={username}&recipient={username} | Get all messages from these two users |
 ## ✨**Technologies**
 - [Node.js](https://nodejs.org/en/docs/)
 - [Express](https://expressjs.com/)
