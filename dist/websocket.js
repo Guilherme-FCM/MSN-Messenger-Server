@@ -60,7 +60,8 @@ io.on('connection', (socket) => {
     });
     socket.on('openChat', data => {
         const senderUser = users.find(user => user.username === data.username);
-        senderUser.socket_id = data.socketId;
+        if (senderUser)
+            senderUser.socket_id = data.socketId;
     });
     socket.on('message', (data) => __awaiter(void 0, void 0, void 0, function* () {
         let { sender, recipient, text } = data;
