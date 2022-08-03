@@ -11,7 +11,7 @@
 </p>
 
 ## 😁**About**
-This server is made to serve the [MSN-Messenger app](https://github.com/gabegodoy/msn-messenger) develop by [Gabriel Godoy](https://github.com/gabegodoy). This applications is capable to register users and messages in order implements a real time chat.
+This server is made to serve the [MSN-Messenger app](https://gabegodoy.github.io/msn-messenger/) develop by [Gabriel Godoy](https://github.com/gabegodoy). This applications is capable to register users and messages in order implements a real time chat.
 
 ## 👨‍💻**Installations**
 To use this API, it's require install in your computer:
