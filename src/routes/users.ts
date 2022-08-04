@@ -8,6 +8,7 @@ userRoutes.route('/')
     .get(userController.index)
     .post(userController.create)
     .put(userController.update)
+    .delete(userController.destroy)
 userRoutes.get('/:username', userController.show)
 userRoutes.post('/authenticate', userController.authenticate)
 
