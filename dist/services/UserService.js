@@ -69,5 +69,18 @@ class UserService {
             }
         });
     }
+    destroy(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const repository = database_1.AppDataSource.getRepository(User_1.default);
+                if (!(yield repository.findOneBy({ username })))
+                    return Error("User not found.");
+                return yield repository.delete({ username });
+            }
+            catch (error) {
+                return Error(error);
+            }
+        });
+    }
 }
 exports.default = UserService;

@@ -51,6 +51,16 @@ class UserController {
             return response.json(result);
         });
     }
+    destroy(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { username } = request.body;
+            const service = new UserService_1.default();
+            const result = yield service.destroy(username);
+            if (result instanceof Error)
+                return response.status(400).json({ error: result.message });
+            return response.json(result);
+        });
+    }
     authenticate(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             let { username, password } = request.body;
