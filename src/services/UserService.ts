@@ -1,6 +1,5 @@
 import User from "../models/User";
 import { AppDataSource } from "../database"
-import { UpdateResult } from "typeorm";
 
 AppDataSource.initialize()
 
@@ -48,7 +47,7 @@ export default class UserService {
         } catch (error ) { return Error(error) }
     }
 
-    async update(userBody: UserRequest): Promise<UpdateResult | Error>{
+    async update(userBody: UserRequest){
         let { username, firstName, lastName, email, note } = userBody
         try {
             const repository = AppDataSource.getRepository(User)
@@ -56,6 +55,16 @@ export default class UserService {
             if (! await repository.findOneBy({ username })) 
                 return Error("User not found.") 
             return await repository.update({ username }, { firstName, lastName, email, note })
+        } catch (error ) { return Error(error) }
+    }
+
+    async destroy(username: string){
+        try {
+            const repository = AppDataSource.getRepository(User)
+
+            if (! await repository.findOneBy({ username })) 
+                return Error("User not found.") 
+            return await repository.delete({ username })
         } catch (error ) { return Error(error) }
     }
 }
