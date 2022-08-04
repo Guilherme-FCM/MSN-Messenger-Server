@@ -21,6 +21,6 @@ export default class User {
     @Column()
     note?: string
 
-    @OneToMany(() => Message, (message) => message.sender)
+    @OneToMany(() => Message, (message) => message.sender, { onDelete: "CASCADE" })
     messages: Message[]
 }
