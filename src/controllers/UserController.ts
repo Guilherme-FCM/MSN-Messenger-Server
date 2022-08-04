@@ -41,6 +41,17 @@ export default class UserController {
         return response.json(result)
     }
 
+    async destroy(request: Request, response: Response){
+        let { username  } = request.body
+
+        const service = new UserService()
+        const result = await service.destroy(username)
+
+        if(result instanceof Error)
+            return response.status(400).json({ error: result.message })
+        return response.json(result)
+    }
+
     async authenticate(request: Request, response: Response){
         let { username, password } = request.body
 
