@@ -71,9 +71,4 @@ io.on('connection', (socket) => {
         if (recipientUser)
             io.in(recipientUser.socket_id).emit('message', message);
     }));
-    socket.on("disconnect", reason => {
-        const user = users.find(user => user.socket_id === socket.id);
-        if (user)
-            users.splice(users.indexOf(user), 1);
-    });
 });
