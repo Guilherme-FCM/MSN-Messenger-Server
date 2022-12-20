@@ -9,7 +9,9 @@
       "typeorm": "typeorm-ts-node-commonjs",
       "migrations": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts",
       "migrations:start": "npx typeorm migration:run -d dist/database/index.js",
-      "migrations:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index.ts"
+      "migrations:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index.ts",
+      "build": "tsc --build",
+      "clean": "tsc --build --clean"
    },
    "repository": {
       "type": "git",
